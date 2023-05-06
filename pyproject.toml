@@ -1,0 +1,42 @@
+[tool.pdm]
+
+[tool.pdm.dev-dependencies]
+dev = [
+    "ruff>=0.0.265",
+    "pytest>=7.3.1",
+    "pytest-asyncio>=0.21.0",
+    "autopep8>=2.0.2",
+]
+[project]
+name = "based.email-credential-manager"
+version = "0.0.1"
+description = "Credential manager for based.email"
+authors = [
+    {name = "Mikołaj Nowak", email = "12396461+m3nowak@users.noreply.github.com"},
+]
+dependencies = [
+    "nats-nsc==0.2.1",
+    "aiohttp>=3.8.4",
+    "pydantic>=1.10.7",
+    "aiofiles>=23.1.0",
+    "pyhumps>=3.8.0",
+    "pyyaml>=6.0",
+]
+requires-python = ">=3.11"
+readme = "README.md"
+license = {text = "MIT"}
+
+[build-system]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
+
+[tool.autopep8]
+max_line_length = 120
+
+[tool.ruff]
+line-length = 120
+
+[tool.pytest.ini_options]
+pythonpath = [
+  "src/"
+]
