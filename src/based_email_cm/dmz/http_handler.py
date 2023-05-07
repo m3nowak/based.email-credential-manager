@@ -6,8 +6,8 @@ import aiofiles
 import nats_nsc
 from aiohttp import web
 
-from . import config
-from .common import BaseModel
+from based_email_cm import config
+from based_email_cm.common import BaseModel
 
 
 class DMZCredsResponse(BaseModel):
@@ -16,7 +16,7 @@ class DMZCredsResponse(BaseModel):
     username: str
 
 
-class DMZHandler:
+class HttpDmzHandler:
     '''Handles HTTP requests for DMZ credentials'''
     routes = web.RouteTableDef()
 
@@ -25,6 +25,10 @@ class DMZHandler:
         nsc_ctx = await nats_nsc.Context.async_factory()
         async with aiofiles.open(cfg.operator_jwt_path, mode='r') as f:
             operator = await nsc_ctx.add_operator(await f.read())
+
+        if cfg.dmz_account_jwt_path is None or cfg.dmz_account_key_path is None:
+            raise ValueError('DMZ configuration is required to run the DMZ service')
+
         async with aiofiles.open(cfg.dmz_account_jwt_path, mode='r') as f:
             jwt = await f.read()
         async with aiofiles.open(cfg.dmz_account_key_path, mode='r') as f:
@@ -59,13 +63,10 @@ class DMZHandler:
         ]
         app.add_routes(routes)
 
+
 async def make_app(cfg: config.Config) -> web.Application:
     '''Create an aiohttp.web.Application'''
     app = web.Application()
-    handler = await DMZHandler.async_init(cfg)
+    handler = await HttpDmzHandler.async_init(cfg)
     handler.add_routes(app)
     return app
-
-# handler = Handler()
-# app.add_routes([web.get('/intro', handler.handle_intro),
-#                 web.get('/greet/{name}', handler.handle_greeting)])

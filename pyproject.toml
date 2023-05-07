@@ -16,11 +16,13 @@ authors = [
 ]
 dependencies = [
     "nats-nsc==0.2.1",
-    "aiohttp>=3.8.4",
-    "pydantic>=1.10.7",
-    "aiofiles>=23.1.0",
-    "pyhumps>=3.8.0",
-    "pyyaml>=6.0",
+    "aiohttp~=3.8.4",
+    "pydantic~=1.10.7",
+    "aiofiles~=23.1.0",
+    "pyhumps~=3.8.0",
+    "pyyaml~=6.0",
+    "nats-py[nkeys]~=2.2.0",
+    "argon2-cffi~=21.3.0",
 ]
 requires-python = ">=3.11"
 readme = "README.md"

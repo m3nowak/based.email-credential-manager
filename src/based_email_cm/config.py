@@ -1,12 +1,20 @@
-import yaml
 import aiofiles
+import yaml
+from pydantic import Field
 
-from .common import BaseModel
+from based_email_cm.common import BaseModel
+
 
 class Config(BaseModel):
     operator_jwt_path: str
-    dmz_account_jwt_path: str
-    dmz_account_key_path: str
+    dmz_account_jwt_path: str | None
+    dmz_account_key_path: str | None
+    userspace_account_jwt_path: str | None
+    userspace_account_key_path: str | None
+    dmz_creds_path: str | None
+    nats_url: str | None
+    http_port: int = Field(default=8080)
+
 
 async def get_config(path):
     async with aiofiles.open(path, mode='r') as f:
