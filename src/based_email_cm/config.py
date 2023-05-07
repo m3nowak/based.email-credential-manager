@@ -14,6 +14,7 @@ class Config(BaseModel):
     dmz_creds_path: str | None
     nats_url: str | None
     http_port: int = Field(default=8080)
+    http_devel: bool = Field(default=False)
 
 
 async def get_config(path):

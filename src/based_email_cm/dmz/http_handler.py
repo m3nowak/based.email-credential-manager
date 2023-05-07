@@ -51,22 +51,32 @@ class HttpDmzHandler:
         creds = await self.nsc_ctx.create_user(username,
                                                self.nsc_account,
                                                allow_pub=['dmz.login'],
-                                               allow_sub=[f'_INBOX.{username}'],
+                                               allow_sub=[f'_INBOX.{username}.>'],
                                                expiry=timedelta(hours=1),
                                                )
 
         return web.json_response(DMZCredsResponse(username=username, creds=creds.payload).dict())
 
-    def add_routes(self, app):
+    def add_routes(self, app: web.Application):
         routes = [
             web.post('/creds', self.post_creds)
         ]
         app.add_routes(routes)
 
+@web.middleware
+async def cors(request, handler):
+    response = await handler(request)
+    response.headers['Access-Control-Allow-Origin'] = '*'
+    return response   
 
 async def make_app(cfg: config.Config) -> web.Application:
     '''Create an aiohttp.web.Application'''
-    app = web.Application()
+    middlewares = []
+    if cfg.http_devel:
+        middlewares.append(cors)
+    app = web.Application(middlewares=middlewares)
+    
+
     handler = await HttpDmzHandler.async_init(cfg)
     handler.add_routes(app)
     return app

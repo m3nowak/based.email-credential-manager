@@ -121,7 +121,7 @@ summary = "multidict implementation"
 
 [[package]]
 name = "nats-nsc"
-version = "0.2.1"
+version = "0.2.3"
 requires_python = ">=3.8"
 summary = "Python wrapper for nsc, nats credential manager"
 dependencies = [
@@ -251,7 +251,7 @@ dependencies = [
 [metadata]
 lock_version = "4.2"
 groups = ["default", "dev"]
-content_hash = "sha256:9356aa7a0c8968e38d381b9e3f8b5cce714f8b37198b382033243682911c1deb"
+content_hash = "sha256:a46ac8c70556e6da3f9502cd265c1214ee88516886e2d4e30dee79fd3ae8eeb5"
 
 [metadata.files]
 "aiofiles 23.1.0" = [
@@ -700,9 +700,9 @@ content_hash = "sha256:9356aa7a0c8968e38d381b9e3f8b5cce714f8b37198b3820332436829
     {url = "https://files.pythonhosted.org/packages/fc/5b/0a4205a1248fb152f596a03c971c6ef1585d0c98e56b6886dc35d084e366/multidict-6.0.4-cp311-cp311-manylinux_2_5_i686.manylinux1_i686.manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:7d18748f2d30f94f498e852c67d61261c643b349b9d2a581131725595c45ec6c"},
     {url = "https://files.pythonhosted.org/packages/fe/0c/8469202f8f4b0e65816f91c3febc4bda7316c995b59ecdf3b15c574f7a24/multidict-6.0.4-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:cc8e1d0c705233c5dd0c5e6460fbad7827d5d36f310a0fadfd45cc3029762258"},
 ]
-"nats-nsc 0.2.1" = [
-    {url = "https://files.pythonhosted.org/packages/84/b5/0b3171eb2c5a272ce422d6d3053e4a6a46c905d69c68b0754574861c1b17/nats_nsc-0.2.1-py3-none-any.whl", hash = "sha256:9a2d3cbecb53ba06addd86d70254ec65de16323998de13c921d4c8412a51b93c"},
-    {url = "https://files.pythonhosted.org/packages/f2/c4/2fe78ffd8229d0247db57764d5a33e2bc00d55829a36e1b0f8256c7dba52/nats_nsc-0.2.1.tar.gz", hash = "sha256:8e3d24432ecd81f9134ebc33a56a0e7e811387474b64b622ba3f0f4973794fdf"},
+"nats-nsc 0.2.3" = [
+    {url = "https://files.pythonhosted.org/packages/5b/ca/0d3b9e18967487bd2df0dd16c53de18d895c74c06855efadbc93e7b2d2f2/nats_nsc-0.2.3-py3-none-any.whl", hash = "sha256:745c829e218d1bcdbd911730742f1bae847ab60d273b8797e060ffb0480a62b4"},
+    {url = "https://files.pythonhosted.org/packages/ce/3e/2f230db0d7d0edaaa9280dc7d9bafca6abb3de62a5717f56f620da077b08/nats_nsc-0.2.3.tar.gz", hash = "sha256:63c8e69f55e3421eb0ddc401b0dcf3032d72185b86b65271eadab2935b803654"},
 ]
 "nats-py 2.2.0" = [
     {url = "https://files.pythonhosted.org/packages/21/00/831ef555466bcde9419fc953ded17cb83e255733b248bf0e72a0a11759b6/nats-py-2.2.0.tar.gz", hash = "sha256:e45a0bafde2d04fb2d2bd6b0527b95bc77f371beaf7b6237354be0234ff9bba9"},

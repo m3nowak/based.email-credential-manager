@@ -15,7 +15,7 @@ authors = [
     {name = "Mikołaj Nowak", email = "12396461+m3nowak@users.noreply.github.com"},
 ]
 dependencies = [
-    "nats-nsc==0.2.1",
+    "nats-nsc==0.2.3",
     "aiohttp~=3.8.4",
     "pydantic~=1.10.7",
     "aiofiles~=23.1.0",
