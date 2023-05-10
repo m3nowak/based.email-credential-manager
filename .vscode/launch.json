@@ -5,26 +5,14 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Python: HTTP DMZ",
+            "name": "Python: HTTP",
             "type": "python",
             "request": "launch",
             "module": "based_email_cm",
             "args": [
                 "-c",
                 "localconf/config.yml",
-                "--http-dmz",
-            ],
-            "justMyCode": true
-        },
-        {
-            "name": "Python: NATS DMZ",
-            "type": "python",
-            "request": "launch",
-            "module": "based_email_cm",
-            "args": [
-                "-c",
-                "localconf/config.yml",
-                "--nats-dmz"
+                "http"
             ],
             "justMyCode": true
         }

@@ -1,16 +1,32 @@
-import argparse
+import getpass
+import asyncio
+from datetime import datetime
 
-def get_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(
-        description='Based Email Credential Manager',
-        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+from argon2 import PasswordHasher
+
+from based_email_cm import models, utils, config
+
+
+async def _add_admin(username: str, password: str, email: str, ph: PasswordHasher, cfg: config.Config):
+    user = models.User(username=username, password_hash=ph.hash(password),
+                       email=email,  # pyright: ignore[reportGeneralTypeIssues]
+                       is_superuser=True, date_joined=datetime.now())
+    nc = await utils.nats_connect(cfg)
+    js = nc.jetstream()
+    user_id_map_bucket, user_bucket = await asyncio.gather(
+        js.key_value(models.USER_MAP_BUCKET),
+        js.key_value(models.USER_BUCKET)
     )
-    parser.add_argument(
-        '-c', '--config-path',
-        help='Path to configuration file',
-        default='/etc/based_email_cm/conf.yaml',
+    await asyncio.gather(
+        user_id_map_bucket.put(username, str(user.id).encode('utf-8')),
+        user_bucket.put(str(user.id), user.json().encode('utf-8'))
     )
-    parser.add_argument('--http-dmz', help='Run the HTTP DMZ service', action='store_true')
-    parser.add_argument('--nats-dmz', help='Run the NATS DMZ service', action='store_true')
-    parser.add_argument('-p', '--port', help='Port to run the HTTP DMZ service on', default=8080, type=int)
-    return parser
+    await nc.close()
+    print("Admin added!")
+
+
+def add_admin(cfg: config.Config):
+    username = input("Enter username:")
+    password = getpass.getpass("Enter password:")
+    email = input("Enter email:")
+    asyncio.run(_add_admin(username, password, email, PasswordHasher(), cfg))
