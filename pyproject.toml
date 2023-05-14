@@ -15,7 +15,7 @@ authors = [
     {name = "Mikołaj Nowak", email = "12396461+m3nowak@users.noreply.github.com"},
 ]
 dependencies = [
-    "nats-nsc==0.3.0",
+    "nats-nsc==0.3.1",
     "aiohttp~=3.8.4",
     "pydantic[email]>=1.10.7",
     "aiofiles~=23.1.0",
@@ -23,8 +23,8 @@ dependencies = [
     "pyyaml~=6.0",
     "nats-py[nkeys]~=2.2.0",
     "argon2-cffi~=21.3.0",
-    "litestar>=2.0.0a6",
     "uvicorn>=0.22.0",
+    "litestar>=2.0.0a7",
 ]
 requires-python = ">=3.11"
 readme = "README.md"

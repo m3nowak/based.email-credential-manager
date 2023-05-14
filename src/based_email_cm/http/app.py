@@ -7,10 +7,13 @@ from based_email_cm.http.login_controller import LoginController
 
 
 def create_app(cfg: config.Config) -> Litestar:
+    extra_kwargs = {}
+    if cfg.http_devel:
+        extra_kwargs['cors_config'] = CORSConfig(allow_origins=["http://localhost:4200"])
     app = Litestar(route_handlers=[LoginController], dependencies={
         'ph': injectables.generate_password_hasher_provide(),
         'nc': injectables.generate_nats_provide(cfg),
-    })
-    if cfg.http_devel:
-        app.cors_config = CORSConfig(allow_origins=["*"])
+        'jwt_ctx': injectables.generate_jwt_ctx_provide(cfg),
+    }, **extra_kwargs)
+    
     return app
