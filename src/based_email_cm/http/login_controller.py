@@ -13,6 +13,7 @@ from based_email_cm import models, jwt_ctx
 from based_email_cm.common import BaseModel
 
 CHAT_SUB_PERMS = [
+    "chat.*",
     '$JS.API.CONSUMER.CREATE.chat'
 ]
 
