@@ -48,7 +48,7 @@ def login_failure() -> Response[LoginResponse]:
 
 def create_token(user: models.User, pub_key: str, jwt_ctx: jwt_ctx.JwtCtx) -> str:
     nu = nats_nsc.create_user(user.username, jwt_ctx.account, pub_key,
-                              allow_pub=[f'chat.{user.username}'], allow_sub=CHAT_SUB_PERMS,
+                              #allow_pub=[f'chat.{user.username}'], allow_sub=CHAT_SUB_PERMS,
                               expiry=timedelta(days=1))
     return nu.full_jwt
 
