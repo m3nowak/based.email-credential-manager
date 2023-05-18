@@ -30,7 +30,7 @@ class User(common.BaseModel):
     def _username_safe(cls, v):
         if USERNAME_RE.match(v) is None:
             raise ValueError('invalid username')
-        return v.title()
+        return v
 
     def validate_password(self, ph: PasswordHasher, password: str) -> bool:
         try:

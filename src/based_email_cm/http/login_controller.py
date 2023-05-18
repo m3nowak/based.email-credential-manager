@@ -12,10 +12,6 @@ import nats_nsc
 from based_email_cm import models, jwt_ctx
 from based_email_cm.common import BaseModel
 
-CHAT_SUB_PERMS = [
-    "chat.*",
-    '$JS.API.CONSUMER.CREATE.chat'
-]
 
 class LoginRequest(BaseModel):
     '''Request to login'''
@@ -46,11 +42,30 @@ class LoginResponse(BaseModel):
 def login_failure() -> Response[LoginResponse]:
     return Response(LoginResponse(success=False, error='Bad credentials', jwt=None), status_code=400)
 
+
+def get_allowed_pubs(username: str) -> ty.List[str]:
+    return [
+        f'chat.{username}',
+        '$JS.API.CONSUMER.CREATE.chat-history',
+        '$JS.API.CONSUMER.MSG.NEXT.chat-history.*',
+        '$JS.API.INFO'
+        ]
+
+
+def get_allowed_subs(username: str) -> ty.List[str]:
+    return [
+        "chat.*",
+        f'_INBOX.{username}.>'
+    ]
+
+
 def create_token(user: models.User, pub_key: str, jwt_ctx: jwt_ctx.JwtCtx) -> str:
     nu = nats_nsc.create_user(user.username, jwt_ctx.account, pub_key,
-                              #allow_pub=[f'chat.{user.username}'], allow_sub=CHAT_SUB_PERMS,
+                              allow_pub=get_allowed_pubs(user.username),
+                              allow_sub=get_allowed_subs(user.username),
                               expiry=timedelta(days=1))
     return nu.full_jwt
+
 
 class LoginController(Controller):
     path = "/login"
