@@ -9,7 +9,7 @@ dev = [
 ]
 [project]
 name = "based.email-credential-manager"
-version = "0.0.1"
+version = "0.0.2"
 description = "Credential manager for based.email"
 authors = [
     {name = "Mikołaj Nowak", email = "12396461+m3nowak@users.noreply.github.com"},
